@@ -1,6 +1,10 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const User = require("../Models/users");
+
 /**********************doctors_create***********************/
 const doctors_create = (req, res, next) => {
-  const doctor = new Doctor({
+  const doctor = new User({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     email: req.body.email,
@@ -9,7 +13,9 @@ const doctors_create = (req, res, next) => {
     contactNumber: req.body.contactNumber,
     address: req.body.address,
     isAvailable: req.body.isAvailable,
+    role: "doctors",
   });
+
   doctor
     .save()
     .then((result) => {
@@ -42,7 +48,7 @@ const doctors_create = (req, res, next) => {
 
 /**********************doctors_get_all***********************/
 const doctors_get_all = (req, res, next) => {
-  Doctor.find()
+  User.find({ role: "doctors" })
     .exec()
     .then((doctors) => {
       res.status(200).json({
@@ -75,11 +81,11 @@ const doctors_get_all = (req, res, next) => {
 /**********************doctors_Get_By_Id***********************/
 const doctors_Get_By_Id = (req, res, next) => {
   const id = req.params.doctorId;
-  Doctor.findById(id)
+  User.findById(id)
     .exec()
     .then((doctor) => {
       console.log("From database", doctor);
-      if (doctor) {
+      if (doctor && doctor.role === "doctors") {
         res.status(200).json({
           doctor: doctor,
           request: {
@@ -102,7 +108,7 @@ const doctors_Get_By_Id = (req, res, next) => {
 /**********************doctors_Update***********************/
 const doctors_Update = (req, res, next) => {
   const id = req.params.doctorId;
-  Doctor.updateMany({ _id: id }, { $set: req.body })
+  User.updateMany({ _id: id, role: "doctors" }, { $set: req.body })
     .exec()
     .then((result) => {
       res.status(200).json({
@@ -124,7 +130,7 @@ const doctors_Update = (req, res, next) => {
 /**********************doctors_Delete_By_Id***********************/
 const doctors_Delete_By_Id = (req, res, next) => {
   const id = req.params.doctorId;
-  Doctor.deleteOne({ _id: id })
+  User.deleteOne({ _id: id, role: "doctors" })
     .exec()
     .then((result) => {
       res.status(200).json({

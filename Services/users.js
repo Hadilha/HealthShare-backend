@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const User = require("../Models/users"); // Assuming you have a "user" model defined in a separate file.
+const User = require("../Models/users");
 
 /**********************users_create***********************/
 const users_create = (req, res, next) => {
