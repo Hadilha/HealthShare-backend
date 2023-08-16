@@ -1,2 +1,1 @@
-module.exports.doctorContollers = require("./doctors");
-module.exports.usersContollers = require("./users");
+module.exports.userController = require('./user.controller');
