@@ -39,6 +39,7 @@ const userSchema = mongoose.Schema(
       type: String,
       enum: ["doctor", "patient"],
       required: true,
+      default: "patient",
     },
     archived: {
       required: true,
