@@ -93,6 +93,48 @@ const getAllDoctors = async () => {
     throw error;
   }
 };
+const getPatientById = async (_id) => {
+  try {
+    const patient = await User.discriminators.patient.findById(_id);
+    return patient;
+  } catch (error) {
+    throw error;
+  }
+};
+const getDoctorById = async (_id) => {
+  try {
+    const doctor = await User.discriminators.doctor.findById(_id);
+    return doctor;
+  } catch (error) {
+    throw error;
+  }
+};
+const updatePatientById = async (_id, data) => {
+  try {
+    const updatedPatient = await User.discriminators.patient.findByIdAndUpdate(
+      _id,
+      data,
+      { new: true }
+    );
+
+    return updatedPatient;
+  } catch (error) {
+    throw error;
+  }
+};
+const updateDoctorById = async (_id, data) => {
+  try {
+    const updatedDoctor = await User.discriminators.doctor.findByIdAndUpdate(
+      _id,
+      data,
+      { new: true }
+    );
+
+    return updatedDoctor;
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
   Signin,
@@ -100,4 +142,8 @@ module.exports = {
   getAllUsers,
   getAllPatients,
   getAllDoctors,
+  getPatientById,
+  getDoctorById,
+  updatePatientById,
+  updateDoctorById,
 };
