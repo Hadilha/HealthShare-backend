@@ -3,8 +3,8 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
-const doctorsRoutes = require("./routes/doctors");
-const usersRoutes = require("./routes/users");
+
+const usersRoutes = require("./routes/user.route");
 
 mongoose
   .connect(`mongodb://127.0.0.1:27017/database`)
@@ -36,7 +36,6 @@ app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //add here
-app.use("/doctors", doctorsRoutes);
 app.use("/users", usersRoutes);
 
 app.use((req, res, next) => {
